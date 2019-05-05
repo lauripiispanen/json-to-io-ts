@@ -1,0 +1,16 @@
+{
+  "name": "io-ts-generator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "author": "Lauri Piispanen (https://github.com/lauripiispanen)",
+  "devDependencies": {
+    "jest": "^24.8.0"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {
+    "clarinet": "^0.12.3"
+  }
+}
