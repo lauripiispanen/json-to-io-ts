@@ -9,10 +9,10 @@ test('outputs a simple object', async () => {
         true)
 })
 
-test('outputs a nested object', async () => {
+test('outputs nested types', async () => {
     await expectOutput(
         "{ \"foo\": true, \"bar\": { \"foo\": 1, \"bar\": false } }",
-        "t.type({foo:t.boolean,bar:t.object({foo:t.number,bar:t.boolean})})",
+        "t.type({foo:t.boolean,bar:t.type({foo:t.number,bar:t.boolean})})",
         true)
 })
 test('outputs arrays', async () => {

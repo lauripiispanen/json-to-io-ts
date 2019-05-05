@@ -1,7 +1,6 @@
 const stream = require("clarinet").createStream()
 const isRaw = process.argv.some((arg) => arg.toLowerCase() == "--raw")
 
-let isRoot = true
 const types = {
     "boolean":"t.boolean",
     "object":"t.object",
@@ -10,12 +9,7 @@ const types = {
 }
 
 stream.on("openobject", (key) => {
-    if (isRoot) {
-        isRoot = false
-        process.stdout.write(`t.type({${key}:`)
-    } else {
-        process.stdout.write(`t.object({${key}:`)
-    }
+    process.stdout.write(`t.type({${key}:`)
 })
 stream.on("closeobject", () => {
     process.stdout.write("})")    
