@@ -3,23 +3,35 @@ const { spawn } = require('child_process')
 const script_name = 'index'
 
 test('outputs a simple object', async () => {
-    const output = await process_input("{ \"foo\": true, \"bar\": false }", true)
-    expect(output.toString()).toBe("t.type({foo:t.boolean,bar:t.boolean})")
+    await expectOutput(
+        "{ \"foo\": true, \"bar\": false }",
+        "t.type({foo:t.boolean,bar:t.boolean})",
+        true)
 })
 
 test('outputs a nested object', async () => {
-    const output = await process_input("{ \"foo\": true, \"bar\": { \"foo\": 1, \"bar\": false } }", true)
-    expect(output.toString()).toBe("t.type({foo:t.boolean,bar:t.object({foo:t.number,bar:t.boolean})})")
+    await expectOutput(
+        "{ \"foo\": true, \"bar\": { \"foo\": 1, \"bar\": false } }",
+        "t.type({foo:t.boolean,bar:t.object({foo:t.number,bar:t.boolean})})",
+        true)
 })
 test('outputs arrays', async () => {
-    const output = await process_input("[{\"foo\":\"bar\"}]", true)
-    expect(output.toString()).toBe("t.array(t.type({foo:t.string}))")
+    await expectOutput(
+        "[{\"foo\":\"bar\"}]",
+        "t.array(t.type({foo:t.string}))",
+        true)
 })
 
 test('outputs root type by default', async () => {
-    const output = await process_input("[{\"foo\":\"bar\"}]")
-    expect(output.toString()).toBe("const RootInterface = t.array(t.type({foo:t.string}))")
+    await expectOutput(
+        "[{\"foo\":\"bar\"}]",
+        "const RootInterface = t.array(t.type({foo:t.string}))")
 })
+
+const expectOutput = async (input, output, raw = false) => {
+    const process_output = await process_input(input, raw)
+    expect(process_output.toString()).toBe(output)
+}
 
 const process_input = async (input, raw = false) => {
     const args = [].concat(
