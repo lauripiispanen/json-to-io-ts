@@ -1,4 +1,6 @@
 const stream = require("clarinet").createStream()
+const isRaw = process.argv.some((arg) => arg.toLowerCase() == "--raw")
+
 let isRoot = true
 const types = {
     "boolean":"t.boolean",
@@ -30,5 +32,9 @@ stream.on("openarray", () => {
 stream.on("closearray", () => {
     process.stdout.write(')')
 })
+
+if (!isRaw) {
+    process.stdout.write('const RootInterface = ')
+}
 
 process.stdin.pipe(stream)
