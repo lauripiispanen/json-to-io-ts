@@ -35,6 +35,13 @@ test('overwrites duplicate keys', async () => {
         "const RootInterface = t.type({foo:t.number})")
 })
 
+test('handles arrays as values', async () => {
+    await expectOutput(
+        "{\"foo\":[\"bar\", \"foo\"]}",
+        "t.type({foo:t.array(t.string)})",
+        true)
+})
+
 const expectOutput = async (input, output, raw = false) => {
     await failExceptions(async () => {
         const process_output = await process_input(input, raw)
