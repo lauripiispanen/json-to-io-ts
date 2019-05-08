@@ -8,7 +8,8 @@
     "jest": "^24.8.0"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "clarinet": "^0.12.3"
