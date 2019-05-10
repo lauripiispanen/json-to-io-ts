@@ -10,11 +10,11 @@ const value_types = {
 
 class ValueNode {
     constructor(parent, value) {
-        this.value = value
+        this.value = value_types[typeof value]
         this.parent = parent
     }
-    write(out) {
-        out.write(value_types[typeof this.value])
+    render() {
+        return this.value
     }
 }
 
@@ -24,17 +24,14 @@ class ObjectNode {
         this.parent = parent
         this.current_key = key
     }
-    write(out) {
-        out.write('t.type({')
-        let index = 0
-        for (let key in this.props) {
-            if (index++ > 0) {
-                out.write(`,`)
-            }
-            out.write(`${key}:`)
-            this.props[key].write(out)
-        }
-        out.write('})')
+    render() {
+        return [
+            't.type({',
+            Object.keys(this.props).map((key) => 
+                `${key}:${this.props[key].render()}`
+            ).join(","),
+            '})'
+        ].join("")
     }
     accept(node) {
         this.props[this.current_key] = node
@@ -46,16 +43,14 @@ class ArrayNode {
         this.children = []
         this.parent = parent
     }
-    write(out) {
-        out.write('t.array(')
-        let index = 0
-        for (let child in this.children) {
-            if (index++ > 0) {
-                out.write(',')
-            }
-            this.children[child].write(out)
-        }
-        out.write(')')
+    render() {
+        return [
+            't.array(',
+            [...new Set(this.children
+                .map((it) => it.render()))
+            ].join(","),
+            ')'
+        ].join("")
     }
     accept(node) {
         this.children.push(node)
@@ -96,7 +91,7 @@ stream.on("closearray", () => {
 })
 
 stream.on("end", () => {
-    root_node.write(process.stdout)
+    process.stdout.write(root_node.render())
 })
 
 if (!isRaw) {
