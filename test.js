@@ -49,6 +49,13 @@ test('merges plain types to union type', async () => {
         true)
 })
 
+test('merges objects in arrays', async () => {
+    await expectOutput(
+        "[{\"foo\":\"bar\"}, {\"foo\": 13}]",
+        "t.array(t.type({foo:t.union(t.string,t.number)}))",
+        true)
+})
+
 const expectOutput = async (input, output, raw = false) => {
     await failExceptions(async () => {
         const process_output = await process_input(input, raw)
