@@ -44,11 +44,18 @@ class ArrayNode {
         this.parent = parent
     }
     render() {
+        const unique_children = [
+            ...new Set(this.children
+            .map((it) => it.render()))
+        ]
+
         return [
             't.array(',
-            [...new Set(this.children
-                .map((it) => it.render()))
-            ].join(","),
+            unique_children.length > 1 ?
+                't.union(' : '',
+            unique_children.join(","),
+            unique_children.length > 1 ?
+                ')' : '',
             ')'
         ].join("")
     }

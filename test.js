@@ -42,6 +42,13 @@ test('handles arrays as values', async () => {
         true)
 })
 
+test('merges plain types to union type', async () => {
+    await expectOutput(
+        "{\"foo\":[\"bar\", 13]}",
+        "t.type({foo:t.array(t.union(t.string,t.number))})",
+        true)
+})
+
 const expectOutput = async (input, output, raw = false) => {
     await failExceptions(async () => {
         const process_output = await process_input(input, raw)
