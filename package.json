@@ -5,7 +5,7 @@
   "license": "MIT",
   "author": "Lauri Piispanen (https://github.com/lauripiispanen)",
   "devDependencies": {
-    "jest": "^24.8.0"
+    "jest": "^24.9.0"
   },
   "scripts": {
     "test": "jest",
