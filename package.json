@@ -12,6 +12,6 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
-    "clarinet": "^0.12.3"
+    "clarinet": "^0.12.4"
   }
 }

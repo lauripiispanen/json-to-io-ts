@@ -593,9 +593,9 @@ ci-info@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ci-info/-/ci-info-2.0.0.tgz#67a9e964be31a51e15e5010d58e6f12834002f46"
 
-clarinet@^0.12.3:
-  version "0.12.3"
-  resolved "https://registry.yarnpkg.com/clarinet/-/clarinet-0.12.3.tgz#8084f8d14650f8bddd7db97b7eae481582a03f60"
+clarinet@^0.12.4:
+  version "0.12.4"
+  resolved "https://registry.yarnpkg.com/clarinet/-/clarinet-0.12.4.tgz#5d7196a2b2347ff283db2e2bf1ef615c0aa6afdb"
 
 class-utils@^0.3.5:
   version "0.3.6"
